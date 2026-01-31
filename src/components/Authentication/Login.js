@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import './Login.css';
 import { useAuth } from './useAuth';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
   const [returningUser, setReturningUser] = useState(false);
   const auth = useAuth();
+  const navigate = useNavigate();
 
-  // ✅ React Hook Form v7+ syntax
   const {
     register,
     handleSubmit,
@@ -16,15 +16,13 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     if (returningUser) {
-      if (data.email && data.password) {
-        auth.signIn(data.email, data.password);
-      }
+      const res = await auth.signIn(data.email, data.password);
+      if (res) navigate('/resume-builder');
     } else {
-      if (data.name && data.email && data.password && data.confirm_password) {
-        auth.signUp(data.email, data.confirm_password, data.name);
-      }
+      const res = await auth.signUp(data.email, data.password, data.name);
+      if (res) navigate('/resume-builder');
     }
   };
 
@@ -38,128 +36,100 @@ const SignUp = () => {
         </div>
 
         {returningUser ? (
+          /* ================= LOGIN ================= */
           <form onSubmit={handleSubmit(onSubmit)} className="py-3">
-            <h1 className="lead text-center py-3">Welcome back!</h1>
-            {auth.user?.error && <p className="text-danger">* {auth.user.error}</p>}
+            <h3 className="text-center mb-3">Welcome Back</h3>
 
-            <div className="form-group">
-              <input
-                className="form-control"
-                placeholder="Email"
-                {...register('email', { required: 'Email is required' })}
-              />
-              {errors.email && <span className="error">{errors.email.message}</span>}
-            </div>
+            <input
+              className="form-control mb-2"
+              placeholder="Email"
+              {...register('email', { required: 'Email is required' })}
+            />
+            {errors.email && <p className="error">{errors.email.message}</p>}
 
-            <div className="form-group">
-              <input
-                type="password"
-                className="form-control"
-                placeholder="Password"
-                {...register('password', { required: 'Password is required' })}
-              />
-              {errors.password && <span className="error">{errors.password.message}</span>}
-            </div>
+            <input
+              type="password"
+              className="form-control mb-2"
+              placeholder="Password"
+              {...register('password', { required: 'Password is required' })}
+            />
+            {errors.password && <p className="error">{errors.password.message}</p>}
 
-            <div className="form-group">
-              <button className="btn btn-primary btn-block" type="submit">
-                Sign In
-              </button>
-            </div>
-
-            <div className="text-center my-0">
-              <label> or </label>
-            </div>
+            <button className="btn btn-primary btn-block mt-3">
+              Sign In
+            </button>
 
             <button
               type="button"
-              className="btn btn-success btn-block"
+              className="btn btn-success btn-block mt-2"
               onClick={auth.signInWithGoogle}
             >
               Sign in with Google
             </button>
 
-            <div className="option text-center my-3">
-              <label onClick={() => setReturningUser(false)}>
-                Create a new Account
-              </label>
-            </div>
+            <p
+              className="text-center mt-3 link"
+              onClick={() => setReturningUser(false)}
+            >
+              Create new account
+            </p>
           </form>
         ) : (
-          <form onSubmit={handleSubmit(onSubmit)} className="py-2">
-            {auth.user?.error && <p className="text-danger">* {auth.user.error}</p>}
+          /* ================= SIGNUP ================= */
+          <form onSubmit={handleSubmit(onSubmit)} className="py-3">
+            <h3 className="text-center mb-3">Create Account</h3>
 
-            <div className="form-group">
-              <input
-                className="form-control"
-                placeholder="Name"
-                {...register('name', {
-                  required: 'Name is required',
-                  pattern: {
-                    value: /^(?=^.{6,20}$)^[a-zA-Z-]+\s[a-zA-Z-]+$/i,
-                    message: 'Name must be 6 - 20 characters & Minimum 2 words',
-                  },
-                })}
-              />
-              {errors.name && <span className="error">{errors.name.message}</span>}
-            </div>
+            <input
+              className="form-control mb-2"
+              placeholder="Full Name"
+              {...register('name', { required: 'Name is required' })}
+            />
+            {errors.name && <p className="error">{errors.name.message}</p>}
 
-            <div className="form-group">
-              <input
-                className="form-control"
-                placeholder="Email"
-                {...register('email', {
-                  required: 'Email is required',
-                  pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                    message: 'Invalid email address',
-                  },
-                })}
-              />
-              {errors.email && <span className="error">{errors.email.message}</span>}
-            </div>
+            <input
+              className="form-control mb-2"
+              placeholder="Email"
+              {...register('email', { required: 'Email is required' })}
+            />
+            {errors.email && <p className="error">{errors.email.message}</p>}
 
-            <div className="form-group">
-              <input
-                type="password"
-                className="form-control"
-                placeholder="Password"
-                {...register('password', {
-                  required: 'Password is required',
-                  pattern: {
-                    value:
-                      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&;:])[A-Za-z\d@$!%*#?&;:]{8,}$/i,
-                    message:
-                      'Minimum eight characters, at least one letter, one number and one special character',
-                  },
-                })}
-              />
-              {errors.password && <span className="error">{errors.password.message}</span>}
-            </div>
+            <input
+              type="password"
+              className="form-control mb-2"
+              placeholder="Password"
+              {...register('password', {
+                required: 'Password is required',
+                minLength: {
+                  value: 6,
+                  message: 'Minimum 6 characters',
+                },
+              })}
+            />
+            {errors.password && <p className="error">{errors.password.message}</p>}
 
-            <div className="form-group">
-              <input
-                type="password"
-                className="form-control"
-                placeholder="Confirm Password"
-                {...register('confirm_password', {
-                  validate: (value) => value === watch('password'),
-                })}
-              />
-              {errors.confirm_password && <span className="error">Passwords don't match.</span>}
-            </div>
+            <input
+              type="password"
+              className="form-control mb-2"
+              placeholder="Confirm Password"
+              {...register('confirm_password', {
+                validate: (value) =>
+                  value === watch('password') || 'Passwords do not match',
+              })}
+            />
+            {errors.confirm_password && (
+              <p className="error">{errors.confirm_password.message}</p>
+            )}
 
-            <div className="form-group">
-              <button className="btn btn-primary btn-block" type="submit">
-                Sign Up
-              </button>
-            </div>
+            <button className="btn btn-primary btn-block mt-3">
+              Sign Up
+            </button>
 
-            <div className="option text-center my-3">
-              <label onClick={() => setReturningUser(true)}>
-                Already Have an Account
-              </label>
-            </div>
+            <p
+              className="text-center mt-3 link"
+              onClick={() => setReturningUser(true)}
+            >
+              Already have an account?
+            </p>
           </form>
         )}
       </div>
