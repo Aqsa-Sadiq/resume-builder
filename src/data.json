@@ -1,12 +1,12 @@
 {
 	"contact": {
-		"name": "John Doe",
+		"name": "aqsa sadiq",
 		"photoUrl": "https://cdn0.iconfinder.com/data/icons/user-pictures/100/malecostume-512.png",
-		"location": "Asuliya, Dhaka, Bangladesh",
-		"phone": "+91 0123456789",
-		"email": "johndoe123@example.com",
-		"linkedin": "linkedin.com/in/johndoe123",
-		"github": "github.com/johndoe123"
+		"location": "Karachi, Pakistan",
+		"phone": "+92 0123456789",
+		"email": "aqsadiq23@example.com",
+		"linkedin": "linkedin.com/in/aqsadiq23",
+		"github": "github.com/aqsadiq23"
 	},
 
 	"objective": "Accomplished leader in marketing communications seeking a new career path with a nonprofit organization. I am looking for an opportunity where I can use apply my passion for philanthropy and use my professional experience to drive positive change in my community.",
@@ -15,33 +15,33 @@
 		{
 			"year": "Aug 2017 - Aug 2021",
 			"course": "B.Sc in Software Engineering – (In Progress)",
-			"institution": "Daffodil International University",
-			"university": "Dhaka, Bangladesh",
+			"institution": "iqra International University",
+			"university": "karachi pakistan",
 			"percentage": "3.96",
 			"achievements": "Publication of IOT Based Home Automation System with Cloud Organizing in International Journal of Engineering & Technology"
 		},
 		{
 			"year": "July 2017",
 			"course": "Higher Secondary Certificate (HSC)",
-			"institution": "Cantonment Public School & Collage, Lalmonirhat",
-			"university": "Dinajpur Board",
+			"institution": "Cantonment Public School & Collage, pakistan",
+			"university": "karachi pakistan",
 			"percentage": "5.00",
 			"achievements": ""
 		},
 		{
 			"year": "April 2015",
 			"course": "Secondary School Certificate (SSC)",
-			"institution": "Phakal Police lines school, Lalmonirhat",
-			"university": "Dinajpur Board",
+			"institution": "Cantonment Public School & Collage, pakistan",
+			"university": "karachi pakistan",
 			"percentage": "5.00",
 			"achievements": "Recipient of General Grade Scholarship in JSC."
 		}
 	],
 
 	"languages": [
-		{ "language": "Bangla", "level": 5 },
+		{ "language": "urdu", "level": 5 },
 		{ "language": "English", "level": 5 },
-		{ "language": "Hindi", "level": 3 }
+		{ "language": "Arabic", "level": 3 }
 	],
 
 	"experience": [
@@ -148,7 +148,7 @@
 		{
 			"name": "SAM Matiur Rahman ",
 			"desig": "Assistant Professor & Associate Head, Department of Software Engineering, Daffodil International University. ",
-			"phone": "+91 0123456789",
+			"phone": "+92 0123456789",
 			"email": "email@example.com"
 		}
 	]

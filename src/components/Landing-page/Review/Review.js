@@ -15,7 +15,7 @@ const Review = () => {
                     <div class="col col-md-4">
                         <blockquote>
                             Very easy to use and looks great. Saved me a ton of time. Awesome template need to have some more specialization of keyword and data figure example.
-                        <cite><img src={customer1} alt="customer-1" /> Alberto Duncan</cite>
+                        <cite><img src={customer1} alt="customer-1" /> mr johnson</cite>    
                         </blockquote>
                     </div>
                     <div class="col col-md-4">
